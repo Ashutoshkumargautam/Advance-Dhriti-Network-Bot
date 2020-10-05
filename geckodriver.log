@@ -1,0 +1,58 @@
+1601879741601	geckodriver	INFO	Listening on 127.0.0.1:51275
+1601879744714	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\PERFEC~2\\AppData\\Local\\Temp\\rust_mozprofilevKVKLN"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+console.error: SearchCache: "_readCacheFile: Error reading cache file:" (new Error("", "(unknown module)"))
+1601879763784	Marionette	INFO	Listening on port 51284
+1601879764417	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: https://partner.gtel.in/Partner/Default.aspx?_TSM_HiddenField_=ToolkitScriptManager1_HiddenField&_TSM_CombinedScripts_=%3b%3bAjaxControlToolkit%2c+Version%3d4.1.60623.0%2c+Culture%3dneutral%2c+PublicKeyToken%3d28f01b0e84b6d53e%3aen-US%3a3a72dea3-4bbb-479b-8b97-903103ced56d%3a475a4ef5%3aeffe2a26%3a751cdd15%3a5546a2b%3adfad98a5%3a1d3ed089%3a497ef277%3aa43b07eb%3ad2e10b12%3a37e2e5c9%3a3cf12cf1, line 2: SyntaxError: expected expression, got '<'
+JavaScript error: https://partner.gtel.in/Partner/Default.aspx, line 502: TypeError: Sys.Extended is undefined
+JavaScript error: https://partner.gtel.in/Partner/Default.aspx?_TSM_HiddenField_=ToolkitScriptManager1_HiddenField&_TSM_CombinedScripts_=%3b%3bAjaxControlToolkit%2c+Version%3d4.1.60623.0%2c+Culture%3dneutral%2c+PublicKeyToken%3d28f01b0e84b6d53e%3aen-US%3a3a72dea3-4bbb-479b-8b97-903103ced56d%3a475a4ef5%3aeffe2a26%3a751cdd15%3a5546a2b%3adfad98a5%3a1d3ed089%3a497ef277%3aa43b07eb%3ad2e10b12%3a37e2e5c9%3a3cf12cf1, line 2: SyntaxError: expected expression, got '<'
+JavaScript error: https://partner.gtel.in/Partner/Default.aspx, line 502: TypeError: Sys.Extended is undefined
+1601879789231	Marionette	INFO	Stopped listening on port 51284
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1601884806080	geckodriver	INFO	Listening on 127.0.0.1:52220
+1601884809230	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\PERFEC~2\\AppData\\Local\\Temp\\rust_mozprofileI8ZXzu"
+console.error: SearchCache: "_readCacheFile: Error reading cache file:" (new Error("", "(unknown module)"))
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1601884831494	Marionette	INFO	Listening on port 52232
+1601884831623	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: https://partner.gtel.in/Partner/Default.aspx?_TSM_HiddenField_=ToolkitScriptManager1_HiddenField&_TSM_CombinedScripts_=%3b%3bAjaxControlToolkit%2c+Version%3d4.1.60623.0%2c+Culture%3dneutral%2c+PublicKeyToken%3d28f01b0e84b6d53e%3aen-US%3a3a72dea3-4bbb-479b-8b97-903103ced56d%3a475a4ef5%3aeffe2a26%3a751cdd15%3a5546a2b%3adfad98a5%3a1d3ed089%3a497ef277%3aa43b07eb%3ad2e10b12%3a37e2e5c9%3a3cf12cf1, line 2: SyntaxError: expected expression, got '<'
+JavaScript error: https://partner.gtel.in/Partner/Default.aspx, line 502: TypeError: Sys.Extended is undefined
+JavaScript error: https://partner.gtel.in/Partner/Default.aspx?_TSM_HiddenField_=ToolkitScriptManager1_HiddenField&_TSM_CombinedScripts_=%3b%3bAjaxControlToolkit%2c+Version%3d4.1.60623.0%2c+Culture%3dneutral%2c+PublicKeyToken%3d28f01b0e84b6d53e%3aen-US%3a3a72dea3-4bbb-479b-8b97-903103ced56d%3a475a4ef5%3aeffe2a26%3a751cdd15%3a5546a2b%3adfad98a5%3a1d3ed089%3a497ef277%3aa43b07eb%3ad2e10b12%3a37e2e5c9%3a3cf12cf1, line 2: SyntaxError: expected expression, got '<'
+JavaScript error: https://partner.gtel.in/Partner/Default.aspx, line 502: TypeError: Sys.Extended is undefined
+1601884857048	Marionette	INFO	Stopped listening on port 52232
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1601884869944	geckodriver	INFO	Listening on 127.0.0.1:52293
+1601885286786	geckodriver	INFO	Listening on 127.0.0.1:52365
+1601885289841	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\PERFEC~2\\AppData\\Local\\Temp\\rust_mozprofileXhWxpW"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+console.error: SearchCache: "_readCacheFile: Error reading cache file:" (new Error("", "(unknown module)"))
+1601885308227	Marionette	INFO	Listening on port 52374
+[Parent 3108, Gecko_IOThread] WARNING: file /builds/worker/checkouts/gecko/ipc/chromium/src/base/process_util_win.cc, line 166
+1601885308754	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: https://partner.gtel.in/Partner/Default.aspx?_TSM_HiddenField_=ToolkitScriptManager1_HiddenField&_TSM_CombinedScripts_=%3b%3bAjaxControlToolkit%2c+Version%3d4.1.60623.0%2c+Culture%3dneutral%2c+PublicKeyToken%3d28f01b0e84b6d53e%3aen-US%3a3a72dea3-4bbb-479b-8b97-903103ced56d%3a475a4ef5%3aeffe2a26%3a751cdd15%3a5546a2b%3adfad98a5%3a1d3ed089%3a497ef277%3aa43b07eb%3ad2e10b12%3a37e2e5c9%3a3cf12cf1, line 2: SyntaxError: expected expression, got '<'
+JavaScript error: https://partner.gtel.in/Partner/Default.aspx, line 502: TypeError: Sys.Extended is undefined
+JavaScript error: https://partner.gtel.in/Partner/Default.aspx?_TSM_HiddenField_=ToolkitScriptManager1_HiddenField&_TSM_CombinedScripts_=%3b%3bAjaxControlToolkit%2c+Version%3d4.1.60623.0%2c+Culture%3dneutral%2c+PublicKeyToken%3d28f01b0e84b6d53e%3aen-US%3a3a72dea3-4bbb-479b-8b97-903103ced56d%3a475a4ef5%3aeffe2a26%3a751cdd15%3a5546a2b%3adfad98a5%3a1d3ed089%3a497ef277%3aa43b07eb%3ad2e10b12%3a37e2e5c9%3a3cf12cf1, line 2: SyntaxError: expected expression, got '<'
+JavaScript error: https://partner.gtel.in/Partner/Default.aspx, line 502: TypeError: Sys.Extended is undefined
+1601885333139	Marionette	INFO	Stopped listening on port 52374
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: (msgtype=0x5E0005,name=PImageBridge::Msg_WillClose) Channel error: cannot send/recv
+
+1601885344450	geckodriver	INFO	Listening on 127.0.0.1:52429
+1601885347439	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\PERFEC~2\\AppData\\Local\\Temp\\rust_mozprofileQjCyoe"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+console.error: SearchCache: "_readCacheFile: Error reading cache file:" (new Error("", "(unknown module)"))
+1601885350861	Marionette	INFO	Listening on port 52438
+1601885351262	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: https://partner.gtel.in/Partner/Default.aspx?_TSM_HiddenField_=ToolkitScriptManager1_HiddenField&_TSM_CombinedScripts_=%3b%3bAjaxControlToolkit%2c+Version%3d4.1.60623.0%2c+Culture%3dneutral%2c+PublicKeyToken%3d28f01b0e84b6d53e%3aen-US%3a3a72dea3-4bbb-479b-8b97-903103ced56d%3a475a4ef5%3aeffe2a26%3a751cdd15%3a5546a2b%3adfad98a5%3a1d3ed089%3a497ef277%3aa43b07eb%3ad2e10b12%3a37e2e5c9%3a3cf12cf1, line 2: SyntaxError: expected expression, got '<'
+JavaScript error: https://partner.gtel.in/Partner/Default.aspx, line 502: TypeError: Sys.Extended is undefined
