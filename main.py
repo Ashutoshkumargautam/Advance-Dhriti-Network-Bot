@@ -1,51 +1,41 @@
 #!/usr/bin/env python3
-import datetime
 from time import sleep
 from selenium import webdriver
-import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
-import imaplib, email
+import imaplib
+import smtplib
 import logging
-import os
-#===[Dhritinetwork_BOT_DATA_CENTER]=============================================>>
+import re
+import shutil
 #===[All server information here]==========>>
 #=====[server1]==============================>
 s1_admin_username = "Anil"
 s1_admin_password = "Anil2522"
-#=====[server2]===============================>
-s2_admin_username = "_"
-s2_admin_password = "_"
-#=====[server3]===============================>
-s3_admin_username = "operator"
-s3_admin_password = "Anil@2515"
-#============================================>>
 #=======[Bot using email and password]================>
 botemail = "xyzxxxaxbxzx123@gmail.com"
 botemailpassword = "xxx@123456"
 #========[Admin email here]==========================>
 adminEmail = "ashutoshkumargautam00000@gmail.com"
-#=========================================================================================>>
+emailofuser = "ashutoshkumargautam@protonmail.com"
+#==============================================================>>
 while True:
-       #Reading email here........
-       # Create and configure logger
+       print(" [+] Reading Email...")
+       #=====[Making log file here]================>
        logging.basicConfig(filename="Dhritinetwork_Bot.log",
                            format='%(asctime)s %(message)s',
                            filemode='w')
-       # Creating an object
        logger = logging.getLogger()
-       # Setting the threshold of logger to DEBUG
        logger.setLevel(logging.DEBUG)
-       #---------------------------->
+       #=====================================================>
        logger.info(" [+] Reading Email sent by website. ")
-       #Reading email here.
-       #=================================>
+       #=====================================================>
+       #======[Reading emails here...]=====================>>
        user = botemail
        password = botemailpassword
        imap_url = 'imap.gmail.com'
-       # Function to get email content part i.e its body part
        def get_body(msg):
               if msg.is_multipart():
                      return get_body(msg.get_payload(0))
@@ -55,78 +45,77 @@ while True:
        def search(key, value, con):
               result, data = con.search(None, key, '"{}"'.format(value))
               return data
-       # Function to get the list of emails under this label
        def get_emails(result_bytes):
-              msgs = []  # all the email data are pushed inside an array
+              msgs = []
               for num in result_bytes[0].split():
                      typ, data = con.fetch(num, '(RFC822)')
                      msgs.append(data)
               return msgs
-       # this is done to make SSL connnection with GMAIL
        con = imaplib.IMAP4_SSL(imap_url)
-       # logging the user in
        con.login(user, password)
-       # calling function to check for email under this label
        con.select('Inbox')
-       # fetching emails from this user "tu**h*****1@gmail.com"
-       msgs = get_emails(search('FROM', adminEmail, con))
-       # Uncomment this to see what actually comes as data
-       # print(msgs)
-       # Finding the required content from our msgs
-       # User can make custom changes in this part to
-       # fetch the required content he / she needs
-       # printing them by the order they are displayed in your gmail
+       msgs = get_emails(search('FROM', 'test@hostinger-tutorials.com', con))
        for msg in msgs[::-1]:
               for sent in msg:
                      if type(sent) is tuple:
-                            # encoding set as utf-8
                             content = str(sent[1], 'utf-8')
                             data = str(content)
-                            # Handling errors related to unicodenecode
                             try:
                                    indexstart = data.find("ltr")
                                    data2 = data[indexstart + 5: len(data)]
                                    indexend = data2.find("</div>")
-                                   # printtng the required content which we need
-                                   # to extract from our email i.e our body
                                    y = data2[0: indexend]
-                                   #writing email into the mail_data_file.txt
+                                   # writing email into the mail_data_file.txt
+                                   # --------------------------------------------->
                                    f = open("mail_data_file.txt", "w")
                                    f.write(y)
                                    f.close()
+                                   # done
+                                   # ===============================================>>
+                                   # reading email here...
+                                   with open('mail_data_file.txt', 'r') as file:
+                                          for line in file:
+                                                 for word in line.split():
+                                                        # reading the file writting splited word inside the text file.
+                                                        f = open("test.txt", "w")
+                                                        # ignoring the html here....
+                                                        v = word
+                                                        result = re.sub("<.*?>", "", v)
+                                                        clean = result
+                                   f.write(clean)
+                                   f.close()
+                                   # reading again text1 file then printing the file on the screen.
+                                   f = open("test.txt", "r")
+                                   nameofuser = f.read()
+                                   username = nameofuser
+                                   print(username)
+                                   #==========================================>>
                             except UnicodeEncodeError as e:
                                    pass
-                     # now searching what is name of the user who to recharge...
-              for LINE in open("test.txt"):
-                     STRING = "Name:"
-                     if STRING in LINE:
-                            username = LINE
-              nameofuser = username
-              print(nameofuser)
-       print(' [+] Waitting for website info  and payment of coustumer > ')
-       x = input()
-       print(" [+] Successfully connected Now ," + x)
+       #===================================================================>>>
+       print(" [+] Successfully connected Now ")
        logger.info(" [+] Colleting user information from email... ")
        logger.info(" [+] Louching browser now....")
        logger.info(" <-- [+] Staring Date and Time ")
+       #==================================================================================>>>
        driver = webdriver.Firefox(executable_path="C:\Program Files (x86)\geckodriver.exe")
        driver.get('https://partner.gtel.in/Partner/Default.aspx')
        sleep(1)
-       #============[Bot is click and input the username here]================
+       #============[Bot is click and input the username here]================>>>
        driver.find_element_by_xpath('//*[@id="txtUserName"]').click()
        driver.find_element_by_xpath('//*[@id="txtUserName"]').send_keys(s1_admin_username)
-       #============[Bot is click and input the Password here]================
+       #============[Bot is click and input the Password here]================>>>
        driver.find_element_by_xpath('//*[@id="txtPassword"]').click()
        driver.find_element_by_xpath('//*[@id="txtPassword"]').send_keys(s1_admin_password)
-       #============[Bot is now clicking on login button to login in the website]====
+       #============[Bot is now clicking on login button to login in the website]====>>>
        driver.find_element_by_xpath('//*[@id="save"]').click()
-       #=======[ Now bot is trying to all user account ]=====================
+       #=======[ Now bot is trying to all user account ]=====================>>>
        driver.get('https://partner.gtel.in/Partner/Accounts.aspx')
        sleep(1)
-       #======[ Now bot is trying to click search bar   ]=========================
+       #======[ Now bot is trying to click search bar   ]===============================>>>
        driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_txtserch"]').click()
        #======[ Now bot is trying type on search bar  ]==============================================>>
-       driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_txtserch"]').send_keys(nameofuser)
+       driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_txtserch"]').send_keys(username)
        sleep(1)
        #======[click on search button]===========================================
        driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_btnserch"]').click()
@@ -144,6 +133,10 @@ while True:
        #============[This is reporting section start here]===============================>>>
        driver.save_screenshot("user_status.png")
        logger.info(" [+] Screenshot taken successfully")
+       # ===========[Now moving to another folder screenshot for managing space to next screenshot]=======>>
+       original = r'C:/Users/Perfect TC Society/PycharmProjects/Dhritinetwork_Bot/user_status.png'
+       target = r'C:/Users/Perfect TC Society/PycharmProjects/Dhritinetwork_Bot/db/user_status.png'
+       shutil.move(original, target)
        #===========[sending email to admin]=======>>
        #==[sender email here ]=========================>>>
        fromaddr = botemail
@@ -165,7 +158,7 @@ while True:
        msg.attach(MIMEText(body, 'plain'))
        # open the file to be sent
        filename = "user_status.png"
-       attachment = open("C:/Users/Perfect TC Society/PycharmProjects/Dhritinetwork_Bot/" + filename, "rb")
+       attachment = open("C:/Users/Perfect TC Society/PycharmProjects/Dhritinetwork_Bot/db/" + filename, "rb")
        # instance of MIMEBase and named as p
        p = MIMEBase('application', 'octet-stream')
        # To change the payload into encoded form
@@ -188,12 +181,29 @@ while True:
        # terminating the session
        s.quit()
        logger.info(" [+] Successfully Email sent to Admin")
-       logger.info(" [+] Deleting New screenshot for managing space for another.")
        #====[Now sending email to the clients]===============================>
-       # me == my email address
-       # you == recipient's email address
+       logger.info(" [+] Successfully Email sent to coustumer")
+       #===========[All Task Complete successfully logout now..]=======>>
+       driver.find_element_by_xpath('//*[@id="lbklogout"]').click()
+       sleep(2)
+       logger.info(" [+] Successfully task completed Now.")
+       logger.info(" [+] Closing entire browser")
+       """ Here Bot is trying close entire browser """
+       driver.close()
+       #=================================================================>>>
+       #============[Sending email to the client]========================>>
+       #===============================================================>>
+       searchfile = open("mail_data_file.txt", "r")
+       for line in searchfile:
+              if "Email:" in line:
+                     f = open('email.txt', 'w')
+                     f.write(line)
+       searchfile.close()
+       f = open('email.txt', 'r')
+       useremail = f.read()
+       # ===============================================================>>
        me = botemail
-       you = "nameofuser"
+       you = useremail
        # Create message container - the correct MIME type is multipart/alternative.
        msg = MIMEMultipart('alternative')
        msg['Subject'] = "Dhritinetwork congratulation"
@@ -230,15 +240,8 @@ while True:
        mail.login(botemail, botemailpassword)
        mail.sendmail(me, you, msg.as_string())
        mail.quit()
-       logger.info(" [+] Successfully Email sent to coustumer")
-       #===========[All Task Complete successfully logout now..]=======>>
-       driver.find_element_by_xpath('//*[@id="lbklogout"]').click()
-       sleep(2)
-       logger.info(" [+] Successfully task completed Now.")
-       logger.info(" [+] Closing entire browser")
-       """ Here Bot is trying close entire browser """
-       driver.close()
-       #====[Deleting unwanted things area]==========================>>>
+       # ========================================>>
+       #===[Deleting email]=================================================>>>
        #========[Deleting new email from inbox]===========================>
        box = imaplib.IMAP4_SSL('imap.gmail.com', 993)
        box.login(botemail, botemailpassword)
@@ -250,10 +253,8 @@ while True:
        box.close()
        box.logout()
        logger.info(" [+] New Email is Deleted. ")
-       #===========[Now deleting screenshot for managing space to next screenshot]=======>>
-       os.remove("user_status.png")
        #============[finishing up logging ]================================>>
-       #The creadit Section from developer
+       #=======[The creadit Section from developer]========================>>>
        logger.info(" [+] Dhritinetwork_Bot - Version 1.0")
        logger.info(" [+] Made By : Ashutosh kumar Gautam")
        logger.info(" [+] Contact me : Email - ashutoshkumargautam@protonmail.com")
