@@ -10,16 +10,12 @@ import smtplib
 import logging
 import re
 import shutil
-#===[All server information here]==========>>
-#=====[server1]==============================>
 s1_admin_username = "Anil"
 s1_admin_password = "Anil2522"
-#=======[Bot using email and password]================>
 botemail = "xyzxxxaxbxzx123@gmail.com"
 botemailpassword = "xxx@123456"
 #========[Admin email here]==========================>
 adminEmail = "ashutoshkumargautam00000@gmail.com"
-emailofuser = "ashutoshkumargautam@protonmail.com"
 #==============================================================>>
 while True:
        print(" [+] Reading Email...")
@@ -190,9 +186,7 @@ while True:
        logger.info(" [+] Closing entire browser")
        """ Here Bot is trying close entire browser """
        driver.close()
-       #=================================================================>>>
        #============[Sending email to the client]========================>>
-       #===============================================================>>
        searchfile = open("mail_data_file.txt", "r")
        for line in searchfile:
               if "Email:" in line:
