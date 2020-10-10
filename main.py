@@ -10,6 +10,12 @@ import smtplib
 import logging
 import re
 import shutil
+import email
+import sys
+import time
+import parser
+import os
+#============================>>>
 s1_admin_username = "Anil"
 s1_admin_password = "Anil2522"
 botemail = "xyzxxxaxbxzx123@gmail.com"
@@ -17,77 +23,68 @@ botemailpassword = "xxx@123456"
 #========[Admin email here]==========================>
 adminEmail = "ashutoshkumargautam00000@gmail.com"
 #==============================================================>>
+#=====[Making log file here]================>
+logging.basicConfig(filename="Dhritinetwork_Bot.log",format='%(asctime)s %(message)s',filemode='w')
+logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
+#=====================================================>
+#===================================[program logic]============================================>>
+""" When new email comes then bot will capture that email and doing work it own way
+if any email is not coming so that time bot will waitting for intire time."""
+#================================================================================================>>
+#=============[Reading email here..]===============================>>
+imap_url = 'imap.gmail.com'
+# ---------------------------------->
+mail = imaplib.IMAP4_SSL(imap_url)
+mail.login(botemail, botemailpassword)
+# ---------------------------------->
+num_of_mail = 0
+# ---------------------------------->
 while True:
-       print(" [+] Reading Email...")
-       #=====[Making log file here]================>
-       logging.basicConfig(filename="Dhritinetwork_Bot.log",
-                           format='%(asctime)s %(message)s',
-                           filemode='w')
-       logger = logging.getLogger()
-       logger.setLevel(logging.DEBUG)
-       #=====================================================>
-       logger.info(" [+] Reading Email sent by website. ")
-       #=====================================================>
-       #======[Reading emails here...]=====================>>
-       user = botemail
-       password = botemailpassword
-       imap_url = 'imap.gmail.com'
-       def get_body(msg):
-              if msg.is_multipart():
-                     return get_body(msg.get_payload(0))
-              else:
-                     return msg.get_payload(None, True)
-       # Function to search for a key value pair
-       def search(key, value, con):
-              result, data = con.search(None, key, '"{}"'.format(value))
-              return data
-       def get_emails(result_bytes):
-              msgs = []
-              for num in result_bytes[0].split():
-                     typ, data = con.fetch(num, '(RFC822)')
-                     msgs.append(data)
-              return msgs
-       con = imaplib.IMAP4_SSL(imap_url)
-       con.login(user, password)
-       con.select('Inbox')
-       msgs = get_emails(search('FROM', 'test@hostinger-tutorials.com', con))
-       for msg in msgs[::-1]:
-              for sent in msg:
-                     if type(sent) is tuple:
-                            content = str(sent[1], 'utf-8')
-                            data = str(content)
-                            try:
-                                   indexstart = data.find("ltr")
-                                   data2 = data[indexstart + 5: len(data)]
-                                   indexend = data2.find("</div>")
-                                   y = data2[0: indexend]
-                                   # writing email into the mail_data_file.txt
-                                   # --------------------------------------------->
-                                   f = open("mail_data_file.txt", "w")
-                                   f.write(y)
-                                   f.close()
-                                   # done
-                                   # ===============================================>>
-                                   # reading email here...
-                                   with open('mail_data_file.txt', 'r') as file:
-                                          for line in file:
-                                                 for word in line.split():
-                                                        # reading the file writting splited word inside the text file.
-                                                        f = open("test.txt", "w")
-                                                        # ignoring the html here....
-                                                        v = word
-                                                        result = re.sub("<.*?>", "", v)
-                                                        clean = result
-                                   f.write(clean)
-                                   f.close()
-                                   # reading again text1 file then printing the file on the screen.
-                                   f = open("test.txt", "r")
-                                   nameofuser = f.read()
-                                   username = nameofuser
-                                   print(username)
-                                   #==========================================>>
-                            except UnicodeEncodeError as e:
-                                   pass
+       #=======[Loader start here]=========>>
+       #=======================================================================================>>>
+       # 2nd -> if any email is not comming in bot email box then wait  infinite time....
+       print("Waitting for website response...")
+       # ---------------------------------->
+       # animation = ["10%", "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%", "100%"]
+       animation = ["[■□□□□□□□□□]", "[■■□□□□□□□□]", "[■■■□□□□□□□]", "[■■■■□□□□□□]", "[■■■■■□□□□□]", "[■■■■■■□□□□]",
+                    "[■■■■■■■□□□]", "[■■■■■■■■□□]", "[■■■■■■■■■□]", "[■■■■■■■■■■]"]
+       for i in range(len(animation)):
+              time.sleep(0.2)
+              sys.stdout.write("\r" + animation[i % len(animation)])
+              sys.stdout.flush()
+       print("\n")
+       #======[loader end]=================================================>>
+       mail.select('inbox')
+
+       type, data = mail.search(None, '(UNSEEN)')
+       mail_ids = data[0]
+       id_list = mail_ids.split()
+
+       if len(id_list) > num_of_mail:
+              # ================================================================================>>
+              # 1st -> if any new email came in bot email box then read that email and cature all information inside email...
+              f = open("test_1.txt", "w")
+              f.write("true")
+              f.close()
+              f = open("test_1.txt", "r")
+              website_response = f.read()
+              #=============================================================>>
+              for i in reversed(id_list):
+                     type, data = mail.fetch(i, '(RFC822)')
+              #==============================================================>>
+                     for response_part in data:
+                         if isinstance(response_part, tuple):
+                             msg = email.message_from_string(response_part[1].decode('utf-8', errors='ignore'))
+                             email_subject = msg['subject']
+                             email_from = msg['from']
+
+              num_of_mail = len(id_list)
+              if website_response == 'true':
+                     print("okay i am doing work now..")
+              break
+       continue
+       #=======[if any new email is not comming so back from here.]=========>>
        #===================================================================>>>
        print(" [+] Successfully connected Now ")
        logger.info(" [+] Colleting user information from email... ")
@@ -254,3 +251,5 @@ while True:
        logger.info(" [+] Contact me : Email - ashutoshkumargautam@protonmail.com")
        logger.info(" <-- [+] Closing Date and Time  ")
        logger.info("[======================================================================================>")
+       print("Back in infinite loop now...  ")
+       continue
