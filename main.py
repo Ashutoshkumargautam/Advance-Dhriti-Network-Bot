@@ -7,33 +7,37 @@ import email
 import sys
 import time
 import subprocess
-#====================================>>
-s1_admin_username = "Anil"
-s1_admin_password = "Anil2522"
-#=====================================>
+website_reponse = 'True'
+#server 1 username and password
+s1_admin_username = 'Anil'
+s1_admin_password = 'Anil2522'
+#server 2 username and password
+s2_admin_username = 'Anil'
+s2_admin_password = 'Anil2522'
+#bot email id and password
 botemail = "xyzxxxaxbxzx123@gmail.com"
 botemailpassword = "xxx@123456"
 #=====[Making log file here]==============================>
 logging.basicConfig(filename="Dhritinetwork_Bot.log",format='%(asctime)s %(message)s',filemode='w')
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
-#===================================[program logic]============================================>>
-""" When new email comes then bot will capture that email and doing work it own way
-if any email is not coming so that time bot will waitting for intire time."""
+#--------------------------------------->>
+f = open('server_number.txt', 'r')
+server_num = f.read()
+f.close()
 #================================================================================================>>
 #=============[Reading email here..]===============================>>
 mail = imaplib.IMAP4_SSL('imap.gmail.com', 993)
 mail.login(botemail, botemailpassword)
 num_of_mail = 0
-# ---------------------------------->
+#--------------------------------->
 while True:
        #=======[Loader start here]=========>>
-       #=======================================================================================>>>
        # 2nd -> if any email is not comming in bot email box then wait  infinite time....
        print("Waitting for website response...")
        #------------------------------------------------->
        # animation = ["10%", "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%", "100%"]
-       animation = ["[â– â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡]", "[â– â– â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡]", "[â– â– â– â–¡â–¡â–¡â–¡â–¡â–¡â–¡]", "[â– â– â– â– â–¡â–¡â–¡â–¡â–¡â–¡]", "[â– â– â– â– â– â–¡â–¡â–¡â–¡â–¡]", "[â– â– â– â– â– â– â–¡â–¡â–¡â–¡]", "[â– â– â– â– â– â– â– â–¡â–¡â–¡]", "[â– â– â– â– â– â– â– â– â–¡â–¡]", "[â– â– â– â– â– â– â– â– â– â–¡]", "[â– â– â– â– â– â– â– â– â– â– ]"]
+       animation = ["[■□□□□□□□□□]", "[■■□□□□□□□□]", "[■■■□□□□□□□]", "[■■■■□□□□□□]", "[■■■■■□□□□□]", "[■■■■■■□□□□]", "[■■■■■■■□□□]", "[■■■■■■■■□□]", "[■■■■■■■■■□]", "[■■■■■■■■■■]"]
        for i in range(len(animation)):
               time.sleep(0.2)
               sys.stdout.write("\r" + animation[i % len(animation)])
@@ -62,7 +66,6 @@ while True:
               # ========[condition here]==========================================================================================>>
               if website_response == 'true':
                      # =====[Email reading here....]===========>>
-                     # Connect to inbox
                      imap_server = imaplib.IMAP4_SSL(host='imap.gmail.com')
                      imap_server.login('xyzxxxaxbxzx123@gmail.com', 'xxx@123456')
                      imap_server.select()  # Default is `INBOX`
@@ -98,84 +101,100 @@ while True:
                                                         f = open('username.txt', 'r')
                                                         clientname = f.read()
                                                         print(clientname)
-                                                        # ====================================================================>>
-                                                        # =======[if any new email is not comming so back from here.]=========>>
-                                                        # ===================================================================>>>
-                                                        print(" [+] Successfully connected Now ")
-                                                        logger.info(" [+] Colleting user information from email... ")
-                                                        logger.info(" [+] Louching browser now....")
-                                                        logger.info(" <-- [+] Staring Date and Time ")
-                                                        # ==================================================================================>>>
-                                                        driver = webdriver.Firefox(executable_path="C:\Program Files (x86)\geckodriver.exe")
-                                                        driver.get('https://partner.gtel.in/Partner/Default.aspx')
-                                                        time.sleep(0.10)
-                                                        # ============[Bot is click and input the username here]================>>>
-                                                        driver.find_element_by_xpath('//*[@id="txtUserName"]').click()
-                                                        driver.find_element_by_xpath('//*[@id="txtUserName"]').send_keys(s1_admin_username)
-                                                        # ============[Bot is click and input the Password here]================>>>
-                                                        driver.find_element_by_xpath('//*[@id="txtPassword"]').click()
-                                                        driver.find_element_by_xpath('//*[@id="txtPassword"]').send_keys(s1_admin_password)
-                                                        # ============[Bot is now clicking on login button to login in the website]====>>>
-                                                        driver.find_element_by_xpath('//*[@id="save"]').click()
-                                                        # =======[ Now bot is trying to all user account ]=====================>>>
-                                                        driver.get('https://partner.gtel.in/Partner/Accounts.aspx')
-                                                        time.sleep(0.10)
-                                                        # ======[ Now bot is trying to click search bar   ]===============================>>>
-                                                        driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_txtserch"]').click()
-                                                        # ======[ Now bot is trying type on search bar  ]==============================================>>
-                                                        driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_txtserch"]').send_keys(clientname)
-                                                        time.sleep(1)
-                                                        # ======[click on search button]===========================================
-                                                        driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_btnserch"]').click()
-                                                        time.sleep(1)
-                                                        # ================[Bot is trying to click on renew plan]=======================================>>>
-                                                        popup = driver.find_element_by_xpath('/html/body/div[2]/form/div[4]/div[2]/div/div[1]/div[1]/table/tbody/tr/td[2]/div[1]/div/div/table/tbody/tr[2]/td[12]/input').click()
-                                                        time.sleep(1)
-                                                        # ==============[Scroll here this gonna be easy]=========================================>>>
-                                                        scr1 = driver.find_element_by_xpath('/html/body/div[2]/form/div[4]/div[2]/div/div[1]/div[3]')
-                                                        driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", scr1)
-                                                        time.sleep(1)
-                                                        # --[Bot is clicking on cancel button on popup-->>
-                                                        driver.find_element_by_xpath('/html/body/div[2]/form/div[4]/div[2]/div/div[1]/div[3]/table/tbody/tr[40]/td/button[2]').click()
-                                                        time.sleep(1)
-                                                        # ============[This is reporting section start here]===============================>>>
-                                                        driver.save_screenshot("user_status.png")
-                                                        logger.info(" [+] Screenshot taken successfully")
-                                                        # ===========[Now moving to another folder screenshot for managing space to next screenshot]=======>>
-                                                        original = r'C:/Users/Perfect TC Society/PycharmProjects/Dhritinetwork_Bot/user_status.png'
-                                                        target = r'C:/Users/Perfect TC Society/PycharmProjects/Dhritinetwork_Bot/db/user_status.png'
-                                                        shutil.move(original, target)
-                                                        # ===========[All Task Complete successfully logout now..]=======>>
-                                                        driver.find_element_by_xpath('//*[@id="lbklogout"]').click()
-                                                        time.sleep(0.10)
-                                                        logger.info(" [+] Successfully task completed Now.")
-                                                        logger.info(" [+] Closing entire browser")
-                                                        """ Here Bot is trying close entire browser """
-                                                        driver.close()
-                                                        # ========================================>>
-                                                        # ===[Deleting email]=================================================>>>
-                                                        # ========[Deleting new email from inbox]===========================>
-                                                        box = imaplib.IMAP4_SSL('imap.gmail.com', 993)
-                                                        box.login(botemail, botemailpassword)
-                                                        box.select('Inbox')
-                                                        typ, data = box.search(None, 'ALL')
-                                                        for num in data[0].split():
-                                                               box.store(num, '+FLAGS', '\\Deleted')
-                                                        box.expunge()
-                                                        box.close()
-                                                        box.logout()
-                                                        logger.info(" [+] New Email is Deleted. ")
-                                                        # ============[finishing up logging ]================================>>
-                                                        # =======[The creadit Section from developer]========================>>>
-                                                        logger.info(" [+] Dhritinetwork_Bot - Version 1.0")
-                                                        logger.info(" [+] Made By : Ashutosh kumar Gautam")
-                                                        logger.info(
-                                                               " [+] Contact me : Email - ashutoshkumargautam@protonmail.com")
-                                                        logger.info(" <-- [+] Closing Date and Time  ")
-                                                        logger.info(
-                                                               "[======================================================================================>")
-                                                        print("Back in infinite loop now...  ")
-                                                        time.sleep(0.1)
-                                                        subprocess.call("python main.py",shell=True)
+                                                        # =========================================================>>
+                                                        if server_num == '1':
+                                                            print("This is server 1")
+                                                            print("Username --> ", s1_admin_username, "|" "Password --> ", s1_admin_password)
+                                                            # ---------------------------------------------------------------------------->
+                                                            driver = webdriver.Firefox(executable_path="C:\Program Files (x86)\geckodriver.exe")
+                                                            driver.get('https://partner.gtel.in/Partner/Default.aspx')
+                                                            time.sleep(0.10)
+                                                            # ============[Bot is click and input the username here]================>>>
+                                                            driver.find_element_by_xpath('//*[@id="txtUserName"]').click()
+                                                            driver.find_element_by_xpath('//*[@id="txtUserName"]').send_keys(s1_admin_username)
+                                                            # ============[Bot is click and input the Password here]================>>>
+                                                            driver.find_element_by_xpath('//*[@id="txtPassword"]').click()
+                                                            driver.find_element_by_xpath('//*[@id="txtPassword"]').send_keys(s1_admin_password)
+                                                            # ============[Bot is now clicking on login button to login in the website]====>>>
+                                                            driver.find_element_by_xpath('//*[@id="save"]').click()
+                                                            # =======[ Now bot is trying to all user account ]=====================>>>
+                                                            driver.get('https://partner.gtel.in/Partner/Accounts.aspx')
+                                                            time.sleep(0.10)
+                                                            # ======[ Now bot is trying to click search bar   ]===============================>>>
+                                                            driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_txtserch"]').click()
+                                                            # ======[ Now bot is trying type on search bar  ]==============================================>>
+                                                            driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_txtserch"]').send_keys(clientname)
+                                                            time.sleep(1)
+                                                            # ======[click on search button]===========================================>
+                                                            driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_btnserch"]').click()
+                                                            time.sleep(1)
+                                                            # ================[Bot is trying to click on renew plan]=======================================>>>
+                                                            popup = driver.find_element_by_xpath('/html/body/div[2]/form/div[4]/div[2]/div/div[1]/div[1]/table/tbody/tr/td[2]/div[1]/div/div/table/tbody/tr[2]/td[12]/input').click()
+                                                            time.sleep(1)
+                                                            # ==============[Scroll here this gonna be easy]=========================================>>>
+                                                            scr1 = driver.find_element_by_xpath('/html/body/div[2]/form/div[4]/div[2]/div/div[1]/div[3]')
+                                                            driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight" ,scr1)
+                                                            time.sleep(1)
+                                                            # --[Bot is clicking on cancel button on popup-->>
+                                                            driver.find_element_by_xpath('/html/body/div[2]/form/div[4]/div[2]/div/div[1]/div[3]/table/tbody/tr[40]/td/button[2]').click()
+                                                            time.sleep(1)
+                                                            # ============[This is reporting section start here]===============================>>>
+                                                            driver.save_screenshot("user_status.png")
+                                                            logger.info(" [+] Screenshot taken successfully")
+                                                            # ===========[Now moving to another folder screenshot for managing space to next screenshot]=======>>
+                                                            original = r'C:/Users/Perfect TC Society/PycharmProjects/Dhritinetwork_Bot/user_status.png'
+                                                            target = r'C:/Users/Perfect TC Society/PycharmProjects/Dhritinetwork_Bot/db/user_status.png'
+                                                            shutil.move(original, target)
+                                                            # ===========[All Task Complete successfully logout now..]=======>>
+                                                            driver.find_element_by_xpath('//*[@id="lbklogout"]').click()
+                                                            time.sleep(0.10)
+                                                            logger.info(" [+] Successfully task completed Now.")
+                                                            logger.info(" [+] Closing entire browser")
+                                                            """ Here Bot is trying close entire browser """
+                                                            driver.close()
+                                                            # ---------------------------------------------------------------------------->
+                                                        elif server_num == '2':
+                                                            print("This is server 2")
+                                                            print("Username  --> ", s2_admin_username, "|" "Password  --> ", s2_admin_password)
+                                                            # ---------------------------------------------------------------------------->
+                                                            driver = webdriver.Firefox(executable_path="C:\Program Files (x86)\geckodriver.exe")
+                                                            driver.get('http://partner.conexiaworld.com/Partner/Default.aspx')
+                                                            # ============[Bot is click and input the username here]================>>>
+                                                            driver.find_element_by_xpath('//*[@id="txtUserName"]').click()
+                                                            driver.find_element_by_xpath('//*[@id="txtUserName"]').send_keys(s2_admin_username)
+                                                            # ============[Bot is click and input the Password here]================>>>
+                                                            driver.find_element_by_xpath('//*[@id="txtPassword"]').click()
+                                                            driver.find_element_by_xpath('//*[@id="txtPassword"]').send_keys(s2_admin_password)
+                                                            # ============[Bot is now clicking on login button to login in the website]====>>>
+                                                            driver.find_element_by_xpath('//*[@id="save"]').click()
+                                                            time.sleep(60)
+                                                            # =======[close browser]=====================>>>
+                                                            driver.quit()
+                                                            # ---------------------------------------------------------------------------->
+                                                        else:
+                                                            subprocess.call("python test.py")
+                                                            #=========================================>>
+                                                            # ===[Deleting email]=================================================>>>
+                                                            # ========[Deleting new email from inbox]===========================>
+                                                            box = imaplib.IMAP4_SSL('imap.gmail.com', 993)
+                                                            box.login(botemail, botemailpassword)
+                                                            box.select('Inbox')
+                                                            typ, data = box.search(None, 'ALL')
+                                                            for num in data[0].split():
+                                                                box.store(num, '+FLAGS', '\\Deleted')
+                                                            box.expunge()
+                                                            box.close()
+                                                            box.logout()
+                                                            logger.info(" [+] New Email is Deleted. ")
+                                                            # ============[finishing up logging ]================================>>
+                                                            # =======[The creadit Section from developer]========================>>>
+                                                            logger.info(" [+] Dhritinetwork_Bot - Version 1.0")
+                                                            logger.info(" [+] Made By : Ashutosh kumar Gautam")
+                                                            logger.info(" [+] Contact me : Email - ashutoshkumargautam@protonmail.com")
+                                                            logger.info(" <-- [+] Closing Date and Time  ")
+                                                            logger.info("[======================================================================================>")
+                                                            print("Back in infinite loop now...  ")
+                                                            time.sleep(0.1)
+                                                            subprocess.call("python main.py", shell=True)
               subprocess.call("python main.py", shell=True)
        continue
