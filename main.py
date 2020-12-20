@@ -207,8 +207,7 @@ while True:
                                                                              box.select('Inbox')
                                                                              typ, data = box.search(None, 'ALL')
                                                                              for num in data[0].split():
-                                                                                    box.store(num, '+FLAGS',
-                                                                                              '\\Deleted')
+                                                                                    box.store(num, '+FLAGS', '\\Deleted')
                                                                              box.expunge()
                                                                              box.close()
                                                                              box.logout()
@@ -224,10 +223,10 @@ while True:
                                                                              time.sleep(0.10)
                                                                              # ============[Bot is click and input the username here]================>>>
                                                                              driver.find_element_by_xpath('//*[@id="txtUserName"]').click()
-                                                                             driver.find_element_by_xpath('//*[@id="txtUserName"]').send_keys(  s1_admin_username)
+                                                                             driver.find_element_by_xpath('//*[@id="txtUserName"]').send_keys(s2_admin_username)
                                                                              # ============[Bot is click and input the Password here]================>>>
                                                                              driver.find_element_by_xpath('//*[@id="txtPassword"]').click()
-                                                                             driver.find_element_by_xpath('//*[@id="txtPassword"]').send_keys(s1_admin_password)
+                                                                             driver.find_element_by_xpath('//*[@id="txtPassword"]').send_keys(s2_admin_password)
                                                                              # ============[Bot is now clicking on login button to login in the website]====>>>
                                                                              driver.find_element_by_xpath('//*[@id="save"]').click()
                                                                              # =======[ Now bot is trying to all user account ]=====================>>>
@@ -236,7 +235,7 @@ while True:
                                                                              # ======[ Now bot is trying to click search bar   ]===============================>>>
                                                                              driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_txtserch"]').click()
                                                                              # ======[ Now bot is trying type on search bar  ]==============================================>>
-                                                                             driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_txtserch"]').send_keys( clientname)
+                                                                             driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_txtserch"]').send_keys(clientname)
                                                                              time.sleep(1)
                                                                              # ======[click on search button]===========================================>
                                                                              driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_btnserch"]').click()
@@ -345,20 +344,8 @@ while True:
                                                                       else:
                                                                              logger.info(" [+] Excuting main file now.. ")
                                                                              subprocess.call("python main.py")
-                                                                             # =================================================================>
-                                                                             #========[Deleting new email from inbox]===========================>
-                                                                             box = imaplib.IMAP4_SSL('imap.gmail.com',993)
-                                                                             box.login(botemail, botemailpassword)
-                                                                             box.select('Inbox')
-                                                                             typ, data = box.search(None, 'ALL')
-                                                                             for num in data[0].split():
-                                                                                    box.store(num, '+FLAGS','\\Deleted')
-                                                                             box.expunge()
-                                                                             box.close()
-                                                                             box.logout()
-                                                                             logger.info(" [+] New Email is Deleted. ")
-                                                                             # ============[finishing up logging ]================================>>
-                                                                             # =======[The creadit Section from developer]========================>>>
+                                                                             # =================================================================>>
+                                                                             # =======[The creadit Section from developer]========================>>
                                                                              logger.info(" [+] Dhritinetwork_Bot - Version 1.0")
                                                                              logger.info(" [+] Made By : Ashutosh kumar Gautam")
                                                                              logger.info(" [+] Contact me : Email - ashutoshkumargautam@protonmail.com")
