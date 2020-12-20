@@ -184,8 +184,8 @@ while True:
                                                                              scr1 = driver.find_element_by_xpath('/html/body/div[2]/form/div[4]/div[2]/div/div[1]/div[3]')
                                                                              driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", scr1)
                                                                              time.sleep(1)
-                                                                             # --[Bot is clicking on cancel button on popup-->>
-                                                                             driver.find_element_by_xpath('//*[@id="btnPurchaseRenewPlanClose"]').click()
+                                                                             # --[Bot is clicking on save button on popup-->>
+                                                                             driver.find_element_by_xpath('//*[@id="btnPurchaseRenewPlanSave"]').click()
                                                                              time.sleep(1)
                                                                              # ============[This is reporting section start here]===============================>>>
                                                                              driver.save_screenshot("user_status.png")
