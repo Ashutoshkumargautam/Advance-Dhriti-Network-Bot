@@ -17,6 +17,14 @@ f = open('bot_time.txt', 'w')
 f.write(str(bt))
 f.close()
 #=====================================================================================================
+#=====[Making log file here]==============================>
+logging.basicConfig(filename="bot.log", format='%(asctime)s %(message)s', filemode='w')
+# Creating an object
+logger = logging.getLogger()
+# Setting the threshold of logger to DEBUG
+logger.setLevel(logging.DEBUG)
+logger.info("Bot started now")
+#=======================================================================================================
 #[servername - Patner.gtel.com] server 1 username and password
 s1_admin_username = 'Anil'
 s1_admin_password = 'Anil2522'
@@ -38,11 +46,8 @@ botemailpassword = "xxx@123456"
 #======================================================================================================
 imap_url = 'imap.gmail.com'
 #======================================================================================================
-#=====[Making log file here]==============================>
-logging.basicConfig(filename="Dhritinetwork_Bot.log",format='%(asctime)s %(message)s',filemode='w')
-logger = logging.getLogger()
-logger.setLevel(logging.DEBUG)
-#=======================================================================================================
+logger.info("Bot reading emails...")
+logger.info("=====================================")
 #=============[Reading email here..]===============================>>
 mail = imaplib.IMAP4_SSL(imap_url, 993)
 mail.login(botemail, botemailpassword)
@@ -53,6 +58,7 @@ while True:
        #=======================================================================================>>>
        #if any email is not comming in bot email box then wait  infinite time....
        print("Waitting for website response...")
+       logger.debug("bot waitting for website response  here...")
        #------------------------------------------------->
        # animation = ["10%", "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%", "100%"]
        animation = ["[■□□□□□□□□□]", "[■■□□□□□□□□]", "[■■■□□□□□□□]", "[■■■■□□□□□□]", "[■■■■■□□□□□]", "[■■■■■■□□□□]", "[■■■■■■■□□□]", "[■■■■■■■■□□]", "[■■■■■■■■■□]", "[■■■■■■■■■■]"]
@@ -82,7 +88,10 @@ while True:
                                    msg = email.message_from_string(response_part[1].decode('utf-8', errors='ignore'))
               num_of_mail = len(id_list)
               # ========[condition here]==========================================================================================>>
+              logger.warning("waiting for true false")
               if website_response == 'true':
+                     logger.info("condition is true now")
+                     logger.info("reading email comes fro website")
                      # =====[Email reading here....]===========>>
                      # Connect to inbox
                      imap_server = imaplib.IMAP4_SSL(host='imap.gmail.com')
@@ -94,10 +103,13 @@ while True:
                             _, msg = imap_server.fetch(message_number, '(RFC822)')
                             x = msg[0][1]
                             #============================================================
+                            logger.debug("making a file mail_data_file.txt")
                             f = open('mail_data_file.txt', 'w')
                             f.write(str(x))
+                            logger.info("writting in file")
                             f.close()
                             #============================================================
+                            logger.info("opening a mail_date_file.txt and reading and cleaing now")
                             with open('mail_data_file.txt', 'r') as file:
                                    for line in file:
                                           for word in line.split():
@@ -110,8 +122,10 @@ while True:
                                                  f.write(clean)
                                                  f.close()
                                           #=========================>
+                                          logger.info("writing a one more file called test.txt")
                                           string = open('test.txt').read()
                                           new_str = re.sub('[\r\n\']', ' ', string)
+                                          logger.info("writing a one more file called test1.txt")
                                           open('test1.txt', 'w').write(new_str)
                                           #reamoving \r\n\ =====================>
                                           f = open('test1.txt')
@@ -119,14 +133,18 @@ while True:
                                                  line = line[:-2].replace('\\r\\', '')
                                                  print(repr(line))
                                                  # =====================>
+                                                 logger.info("writing a one more file called test2.txt")
                                                  f = open('test2.txt', 'w')
                                                  f.write(repr(line))
                                                  f.close()
                                                  # =============================>
+                                                 logger.info("reading test2.txt")
                                                  string = open('test2.txt').read()
                                                  new_str = re.sub('[^a-zA-Z0-9\n\.]', '', string)
+                                                 logger.info("opening username.txt file")
                                                  open('username.txt', 'w').write(new_str)
                                           #======================================>>
+                                                 logger.info("opening username.txt file agin")
                                                  f = open('username.txt', 'r')
                                                  clientname = f.read()
                                                  print("Client Name -->", clientname)
@@ -150,15 +168,21 @@ while True:
                                                                       f = open('server_number.txt', 'r')
                                                                       server_number = f.read()
                                                                       print("Server Number -->", server_number)
-                                                                      # =========================================================>>
+                                                                      logger.info(" this is server number")
+                                                                      #=========================================================>>
+                                                                      #===[This is server [1]====>>
                                                                       if server_num == '1':
+                                                                             logger.debug("Server one is accessed")
                                                                              print("This is server 1")
                                                                              print("Username --> ", s1_admin_username,  "|" "Password --> ", s1_admin_password)
                                                                              # ---------------------------------------------------------------------------->
+                                                                             logger.debug("insitining firefox webdriver now")
                                                                              driver = webdriver.Firefox(executable_path="C:\Program Files (x86)\geckodriver.exe")
                                                                              driver.get(url_1)
+                                                                             logger.info("driver is searching for server 1 url")
                                                                              time.sleep(0.10)
                                                                              # ============[Bot is click and input the username here]================>>>
+                                                                             logger.info("logining in website")
                                                                              driver.find_element_by_xpath('//*[@id="txtUserName"]').click()
                                                                              driver.find_element_by_xpath('//*[@id="txtUserName"]').send_keys(s1_admin_username)
                                                                              # ============[Bot is click and input the Password here]================>>>
@@ -166,12 +190,14 @@ while True:
                                                                              driver.find_element_by_xpath('//*[@id="txtPassword"]').send_keys(s1_admin_password)
                                                                              # ============[Bot is now clicking on login button to login in the website]====>>>
                                                                              driver.find_element_by_xpath('//*[@id="save"]').click()
+                                                                             logger.info("successfully logged in")
                                                                              # =======[ Now bot is trying to all user account ]=====================>>>
                                                                              driver.get('https://partner.gtel.in/Partner/Accounts.aspx')
                                                                              time.sleep(0.10)
                                                                              # ======[ Now bot is trying to click search bar   ]===============================>>>
                                                                              driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_txtserch"]').click()
                                                                              # ======[ Now bot is trying type on search bar  ]==============================================>>
+                                                                             logger.info("Now client name writting in search bar")
                                                                              driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_txtserch"]').send_keys(clientname)
                                                                              time.sleep(1)
                                                                              # ======[click on search button]===========================================>
@@ -185,8 +211,9 @@ while True:
                                                                              driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", scr1)
                                                                              time.sleep(1)
                                                                              # --[Bot is clicking on save button on popup-->>
-                                                                             driver.find_element_by_xpath('//*[@id="btnPurchaseRenewPlanSave"]').click()
+                                                                             driver.find_element_by_xpath('//*[@id="btnPurchaseRenewPlanClose"]').click()
                                                                              time.sleep(1)
+                                                                             logger.info("recharge done successfully.")
                                                                              # ============[This is reporting section start here]===============================>>>
                                                                              driver.save_screenshot("user_status.png")
                                                                              logger.info(" [+] Screenshot taken successfully")
@@ -212,8 +239,11 @@ while True:
                                                                              box.close()
                                                                              box.logout()
                                                                              logger.info(" [+] New Email is Deleted. ")
+                                                                             logger.info("Successfully server 1 recharge done.")
+                                                                             logger.info("Back in infinity loop")
                                                                              # ============[finishing up logging ]================================>>
-                                                                             # ---------------------------------------------------------------------------->
+                                                                             #==========================================================================>
+                                                                             # ===[This is server [2]====>>
                                                                       elif server_num == '2':
                                                                              print("This is server 2")
                                                                              print("Username  --> ", s2_admin_username, "|" "Password  --> ", s2_admin_password)
@@ -270,35 +300,36 @@ while True:
                                                                              box.select('Inbox')
                                                                              typ, data = box.search(None, 'ALL')
                                                                              for num in data[0].split():
-                                                                                    box.store(num, '+FLAGS',
-                                                                                              '\\Deleted')
+                                                                                    box.store(num, '+FLAGS', '\\Deleted')
                                                                              box.expunge()
                                                                              box.close()
                                                                              box.logout()
                                                                              logger.info(" [+] New Email is Deleted. ")
                                                                              # ============[finishing up logging ]================================>>
-                                                                             # -------------------------------------------------------------------------------------->
+                                                                             #================================================================================>
+                                                                      #===[This is server [3]====>>
                                                                       if server_num == '3':
                                                                              print("This is 3rd server")
-                                                                             print("Username  --> ", s2_admin_username, "|" "Password  --> ", s2_admin_password)
+                                                                             print("Username  --> ", s3_admin_username, "|" "Password  --> ", s3_admin_password)
                                                                              #----------------------------------------------------------------------------------->
                                                                              driver = webdriver.Firefox(executable_path="C:\Program Files (x86)\geckodriver.exe")
                                                                              driver.get(url_3)
                                                                              time.sleep(0.10)
                                                                              # ============[Bot is click and input the username here]================>>>
                                                                              driver.find_element_by_xpath('//*[@id="txtUserName"]').click()
-                                                                             driver.find_element_by_xpath( '//*[@id="txtUserName"]').send_keys(s1_admin_username)
+                                                                             driver.find_element_by_xpath('//*[@id="txtUserName"]').send_keys(s3_admin_username)
                                                                              # ============[Bot is click and input the Password here]================>>>
-                                                                             driver.find_element_by_xpath( '//*[@id="txtPassword"]').click()
-                                                                             driver.find_element_by_xpath( '//*[@id="txtPassword"]').send_keys( s1_admin_password)
+                                                                             driver.find_element_by_xpath('//*[@id="txtPassword"]').click()
+                                                                             driver.find_element_by_xpath('//*[@id="txtPassword"]').send_keys(s3_admin_password)
                                                                              # ============[Bot is now clicking on login button to login in the website]====>>>
                                                                              driver.find_element_by_xpath('//*[@id="save"]').click()
                                                                              # =======[ Now bot is trying to all user account ]=====================>>>
-                                                                             driver.get('http://partner.gtel.in/Partner/Default.aspx')
+                                                                             driver.get('https://partner.gtel.in/Partner/Accounts.aspx')
                                                                              time.sleep(0.10)
                                                                              # ======[ Now bot is trying to click search bar   ]===============================>>>
                                                                              driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_txtserch"]').click()
                                                                              # ======[ Now bot is trying type on search bar  ]==============================================>>
+                                                                             logger.info("Now client name writting in search bar")
                                                                              driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_txtserch"]').send_keys(clientname)
                                                                              time.sleep(1)
                                                                              # ======[click on search button]===========================================>
@@ -309,11 +340,12 @@ while True:
                                                                              time.sleep(1)
                                                                              # ==============[Scroll here this gonna be easy]=========================================>>>
                                                                              scr1 = driver.find_element_by_xpath('/html/body/div[2]/form/div[4]/div[2]/div/div[1]/div[3]')
-                                                                             driver.execute_script( "arguments[0].scrollTop = arguments[0].scrollHeight", scr1)
+                                                                             driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight",scr1)
                                                                              time.sleep(1)
-                                                                             # --[Bot is clicking on cancel button on popup-->>
-                                                                             driver.find_element_by_xpath('/html/body/div[2]/form/div[4]/div[2]/div/div[1]/div[3]/table/tbody/tr[40]/td/button[2]').click()
+                                                                             # --[Bot is clicking on save button on popup-->>
+                                                                             driver.find_element_by_xpath('//*[@id="btnPurchaseRenewPlanClose"]').click()
                                                                              time.sleep(1)
+                                                                             logger.info("recharge done successfully.")
                                                                              # ============[This is reporting section start here]===============================>>>
                                                                              driver.save_screenshot("user_status.png")
                                                                              logger.info(" [+] Screenshot taken successfully")
@@ -324,7 +356,7 @@ while True:
                                                                              # ===========[All Task Complete successfully logout now..]=======>>
                                                                              driver.find_element_by_xpath('//*[@id="lbklogout"]').click()
                                                                              time.sleep(0.10)
-                                                                             logger.info( " [+] Successfully task completed Now.")
+                                                                             logger.info(" [+] Successfully task completed Now.")
                                                                              logger.info(" [+] Closing entire browser")
                                                                              #Here Bot is trying close entire browser=========================>
                                                                              driver.close()
@@ -341,6 +373,7 @@ while True:
                                                                              logger.info(" [+] New Email is Deleted. ")
                                                                              # ============[finishing up logging ]================================>>
                                                                              #=================================================================>
+                                                                             # =================================================================>
                                                                       else:
                                                                              logger.info(" [+] Excuting main file now.. ")
                                                                              subprocess.call("python main.py")
