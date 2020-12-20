@@ -1,39 +1,57 @@
+#importing libraries here...
 from selenium import webdriver
+import subprocess
+import datetime
 import imaplib
 import logging
-import re
 import shutil
 import email
-import sys
 import time
-import subprocess
-website_reponse = 'True'
-#server 1 username and password
+import sys
+import re
+#=====================================================================================================
+#==[Bot staring time]================================================================================
+starting_time = datetime.datetime.now()
+bt = starting_time.strftime("%A"), "Date", starting_time.date(), "/", "Time", starting_time.time()
+f = open('bot_time.txt', 'w')
+f.write(str(bt))
+f.close()
+#=====================================================================================================
+#[servername - Patner.gtel.com] server 1 username and password
 s1_admin_username = 'Anil'
 s1_admin_password = 'Anil2522'
-#server 2 username and password
-s2_admin_username = 'Anil'
-s2_admin_password = 'Anil2522'
+#[servername - patner.gtel.conaxia] server 2 username and password
+s2_admin_username = 'dhritinetwork'
+s2_admin_password = 'dhritinetwork508'
+#[servername - Patner.gtel] server 3 username and password
+s3_admin_username = 'dhriti'
+s3_admin_password = '112233'
+#======================================================================================================
+# All website url list
+url_1 = "https://partner.gtel.in/Partner/Default.aspx" #server_1
+url_2 = "http://partner.conexiaworld.com" #server_2
+url_3 = "https://partner.gtel.in/Partner/Default.aspx" #server_3
+#======================================================================================================
 #bot email id and password
 botemail = "xyzxxxaxbxzx123@gmail.com"
 botemailpassword = "xxx@123456"
+#======================================================================================================
+imap_url = 'imap.gmail.com'
+#======================================================================================================
 #=====[Making log file here]==============================>
 logging.basicConfig(filename="Dhritinetwork_Bot.log",format='%(asctime)s %(message)s',filemode='w')
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
-#--------------------------------------->>
-f = open('server_number.txt', 'r')
-server_num = f.read()
-f.close()
-#================================================================================================>>
+#=======================================================================================================
 #=============[Reading email here..]===============================>>
-mail = imaplib.IMAP4_SSL('imap.gmail.com', 993)
+mail = imaplib.IMAP4_SSL(imap_url, 993)
 mail.login(botemail, botemailpassword)
 num_of_mail = 0
-#--------------------------------->
+#=======================================================================================================>
 while True:
        #=======[Loader start here]=========>>
-       # 2nd -> if any email is not comming in bot email box then wait  infinite time....
+       #=======================================================================================>>>
+       #if any email is not comming in bot email box then wait  infinite time....
        print("Waitting for website response...")
        #------------------------------------------------->
        # animation = ["10%", "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%", "100%"]
@@ -66,16 +84,20 @@ while True:
               # ========[condition here]==========================================================================================>>
               if website_response == 'true':
                      # =====[Email reading here....]===========>>
+                     # Connect to inbox
                      imap_server = imaplib.IMAP4_SSL(host='imap.gmail.com')
                      imap_server.login('xyzxxxaxbxzx123@gmail.com', 'xxx@123456')
+                     #============================================================
                      imap_server.select()  # Default is `INBOX`
                      _, message_numbers_raw = imap_server.search(None, 'ALL')
                      for message_number in message_numbers_raw[0].split():
                             _, msg = imap_server.fetch(message_number, '(RFC822)')
                             x = msg[0][1]
+                            #============================================================
                             f = open('mail_data_file.txt', 'w')
                             f.write(str(x))
                             f.close()
+                            #============================================================
                             with open('mail_data_file.txt', 'r') as file:
                                    for line in file:
                                           for word in line.split():
@@ -87,160 +109,225 @@ while True:
                                                  clean = result
                                                  f.write(clean)
                                                  f.close()
-                                          # =========================>
+                                          #=========================>
                                           string = open('test.txt').read()
-                                          new_str = re.sub('[^a-zA-Z0-9\n\.]', ' ', string)
+                                          new_str = re.sub('[\r\n\']', ' ', string)
                                           open('test1.txt', 'w').write(new_str)
-                                          # =============>>
-                                          with open('test1.txt', 'r') as f:
-                                                 for line in f:
-                                                        username = line.split(' ')[0]
-                                                        f = open('username.txt', 'w')
-                                                        f.write(username)
-                                                        f.close()
-                                                        f = open('username.txt', 'r')
-                                                        clientname = f.read()
-                                                        print(clientname)
-                                                        # =========================================================>>
-                                                        if server_num == '1':
-                                                            print("This is server 1")
-                                                            print("Username --> ", s1_admin_username, "|" "Password --> ", s1_admin_password)
-                                                            # ---------------------------------------------------------------------------->
-                                                            driver = webdriver.Firefox(executable_path="C:\Program Files (x86)\geckodriver.exe")
-                                                            driver.get('https://partner.gtel.in/Partner/Default.aspx')
-                                                            time.sleep(0.10)
-                                                            # ============[Bot is click and input the username here]================>>>
-                                                            driver.find_element_by_xpath('//*[@id="txtUserName"]').click()
-                                                            driver.find_element_by_xpath('//*[@id="txtUserName"]').send_keys(s1_admin_username)
-                                                            # ============[Bot is click and input the Password here]================>>>
-                                                            driver.find_element_by_xpath('//*[@id="txtPassword"]').click()
-                                                            driver.find_element_by_xpath('//*[@id="txtPassword"]').send_keys(s1_admin_password)
-                                                            # ============[Bot is now clicking on login button to login in the website]====>>>
-                                                            driver.find_element_by_xpath('//*[@id="save"]').click()
-                                                            # =======[ Now bot is trying to all user account ]=====================>>>
-                                                            driver.get('https://partner.gtel.in/Partner/Accounts.aspx')
-                                                            time.sleep(0.10)
-                                                            # ======[ Now bot is trying to click search bar   ]===============================>>>
-                                                            driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_txtserch"]').click()
-                                                            # ======[ Now bot is trying type on search bar  ]==============================================>>
-                                                            driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_txtserch"]').send_keys(clientname)
-                                                            time.sleep(1)
-                                                            # ======[click on search button]===========================================>
-                                                            driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_btnserch"]').click()
-                                                            time.sleep(1)
-                                                            # ================[Bot is trying to click on renew plan]=======================================>>>
-                                                            popup = driver.find_element_by_xpath('/html/body/div[2]/form/div[4]/div[2]/div/div[1]/div[1]/table/tbody/tr/td[2]/div[1]/div/div/table/tbody/tr[2]/td[12]/input').click()
-                                                            time.sleep(1)
-                                                            # ==============[Scroll here this gonna be easy]=========================================>>>
-                                                            scr1 = driver.find_element_by_xpath('/html/body/div[2]/form/div[4]/div[2]/div/div[1]/div[3]')
-                                                            driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight" ,scr1)
-                                                            time.sleep(1)
-                                                            # --[Bot is clicking on cancel button on popup-->>
-                                                            driver.find_element_by_xpath('/html/body/div[2]/form/div[4]/div[2]/div/div[1]/div[3]/table/tbody/tr[40]/td/button[2]').click()
-                                                            time.sleep(1)
-                                                            # ============[This is reporting section start here]===============================>>>
-                                                            driver.save_screenshot("user_status.png")
-                                                            logger.info(" [+] Screenshot taken successfully")
-                                                            # ===========[Now moving to another folder screenshot for managing space to next screenshot]=======>>
-                                                            original = r'C:/Users/Perfect TC Society/PycharmProjects/Dhritinetwork_Bot/user_status.png'
-                                                            target = r'C:/Users/Perfect TC Society/PycharmProjects/Dhritinetwork_Bot/db/user_status.png'
-                                                            shutil.move(original, target)
-                                                            # ===========[All Task Complete successfully logout now..]=======>>
-                                                            driver.find_element_by_xpath('//*[@id="lbklogout"]').click()
-                                                            time.sleep(0.10)
-                                                            logger.info(" [+] Successfully task completed Now.")
-                                                            logger.info(" [+] Closing entire browser")
-                                                            """ Here Bot is trying close entire browser """
-                                                            driver.close()
-                                                            # ---------------------------------------------------------------------------->
-                                                        elif server_num == '2':
-                                                            print("This is server 2")
-                                                            print("Username  --> ", s2_admin_username, "|" "Password  --> ", s2_admin_password)
-                                                            # ----------------------------------------------------------------------------------->
-                                                            driver = webdriver.Firefox(
-                                                                executable_path="C:\Program Files (x86)\geckodriver.exe")
-                                                            driver.get('https://partner.gtel.in/Partner/Default.aspx')
-                                                            time.sleep(0.10)
-                                                            # ============[Bot is click and input the username here]================>>>
-                                                            driver.find_element_by_xpath(
-                                                                '//*[@id="txtUserName"]').click()
-                                                            driver.find_element_by_xpath(
-                                                                '//*[@id="txtUserName"]').send_keys(s1_admin_username)
-                                                            # ============[Bot is click and input the Password here]================>>>
-                                                            driver.find_element_by_xpath(
-                                                                '//*[@id="txtPassword"]').click()
-                                                            driver.find_element_by_xpath(
-                                                                '//*[@id="txtPassword"]').send_keys(s1_admin_password)
-                                                            # ============[Bot is now clicking on login button to login in the website]====>>>
-                                                            driver.find_element_by_xpath('//*[@id="save"]').click()
-                                                            # =======[ Now bot is trying to all user account ]=====================>>>
-                                                            driver.get('https://partner.gtel.in/Partner/Accounts.aspx')
-                                                            time.sleep(0.10)
-                                                            # ======[ Now bot is trying to click search bar   ]===============================>>>
-                                                            driver.find_element_by_xpath(
-                                                                '//*[@id="ContentPlaceHolder1_txtserch"]').click()
-                                                            # ======[ Now bot is trying type on search bar  ]==============================================>>
-                                                            driver.find_element_by_xpath(
-                                                                '//*[@id="ContentPlaceHolder1_txtserch"]').send_keys(
-                                                                clientname)
-                                                            time.sleep(1)
-                                                            # ======[click on search button]===========================================>
-                                                            driver.find_element_by_xpath(
-                                                                '//*[@id="ContentPlaceHolder1_btnserch"]').click()
-                                                            time.sleep(1)
-                                                            # ================[Bot is trying to click on renew plan]=======================================>>>
-                                                            popup = driver.find_element_by_xpath(
-                                                                '/html/body/div[2]/form/div[4]/div[2]/div/div[1]/div[1]/table/tbody/tr/td[2]/div[1]/div/div/table/tbody/tr[2]/td[12]/input').click()
-                                                            time.sleep(1)
-                                                            # ==============[Scroll here this gonna be easy]=========================================>>>
-                                                            scr1 = driver.find_element_by_xpath(
-                                                                '/html/body/div[2]/form/div[4]/div[2]/div/div[1]/div[3]')
-                                                            driver.execute_script(
-                                                                "arguments[0].scrollTop = arguments[0].scrollHeight",
-                                                                scr1)
-                                                            time.sleep(1)
-                                                            # --[Bot is clicking on cancel button on popup-->>
-                                                            driver.find_element_by_xpath(
-                                                                '/html/body/div[2]/form/div[4]/div[2]/div/div[1]/div[3]/table/tbody/tr[40]/td/button[2]').click()
-                                                            time.sleep(1)
-                                                            # ============[This is reporting section start here]===============================>>>
-                                                            driver.save_screenshot("user_status.png")
-                                                            logger.info(" [+] Screenshot taken successfully")
-                                                            # ===========[Now moving to another folder screenshot for managing space to next screenshot]=======>>
-                                                            original = r'C:/Users/Perfect TC Society/PycharmProjects/Dhritinetwork_Bot/user_status.png'
-                                                            target = r'C:/Users/Perfect TC Society/PycharmProjects/Dhritinetwork_Bot/db/user_status.png'
-                                                            shutil.move(original, target)
-                                                            # ===========[All Task Complete successfully logout now..]=======>>
-                                                            driver.find_element_by_xpath('//*[@id="lbklogout"]').click()
-                                                            time.sleep(0.10)
-                                                            logger.info(" [+] Successfully task completed Now.")
-                                                            logger.info(" [+] Closing entire browser")
-                                                            """ Here Bot is trying close entire browser """
-                                                            driver.close()
-                                                            #-------------------------------------------------------------------------------------->
-                                                        else:
-                                                            logger.info(" [+] Excuting main file now.. ")
-                                                            subprocess.call("python main.py")
-                                                            #========[Deleting new email from inbox]===========================>
-                                                            box = imaplib.IMAP4_SSL('imap.gmail.com', 993)
-                                                            box.login(botemail, botemailpassword)
-                                                            box.select('Inbox')
-                                                            typ, data = box.search(None, 'ALL')
-                                                            for num in data[0].split():
-                                                                box.store(num, '+FLAGS', '\\Deleted')
-                                                            box.expunge()
-                                                            box.close()
-                                                            box.logout()
-                                                            logger.info(" [+] New Email is Deleted. ")
-                                                            #============[finishing up logging ]================================>>
-                                                            #=======[The creadit Section from developer]========================>>>
-                                                            logger.info(" [+] Dhritinetwork_Bot - Version 1.0")
-                                                            logger.info(" [+] Made By : Ashutosh kumar Gautam")
-                                                            logger.info(" [+] Contact me : Email - ashutoshkumargautam@protonmail.com")
-                                                            logger.info(" <-- [+] Closing Date and Time  ")
-                                                            logger.info("Back in infinite now...")
-                                                            print(" [+] Back in infinite loop now...")
-                                                            logger.info("[======================================================================================>")
-                                                            subprocess.call("python main.py", shell=True)
-              subprocess.call("python main.py", shell=True)
-       continue
+                                          #reamoving \r\n\ =====================>
+                                          f = open('test1.txt')
+                                          for line in f.readlines():
+                                                 line = line[:-2].replace('\\r\\', '')
+                                                 print(repr(line))
+                                                 # =====================>
+                                                 f = open('test2.txt', 'w')
+                                                 f.write(repr(line))
+                                                 f.close()
+                                                 # =============================>
+                                                 string = open('test2.txt').read()
+                                                 new_str = re.sub('[^a-zA-Z0-9\n\.]', '', string)
+                                                 open('username.txt', 'w').write(new_str)
+                                          #======================================>>
+                                                 f = open('username.txt', 'r')
+                                                 clientname = f.read()
+                                                 print("Client Name -->", clientname)
+                                                 # Reading mail data for server umber detect and take action acc. to the server number.
+                                                 with open('mail_data_file.txt', 'r') as file:
+                                                        for line in file:
+                                                               for part in line.split():
+                                                                      if "Server:" in part:
+                                                                             f = open('s1.txt', 'w')
+                                                                             f.write(part)
+                                                                             f.close()
+                                                        string = open('s1.txt').read()
+                                                        new_str = re.sub('[^a-zA-Z0-9\n\r\.]', ' ', string)
+                                                        open('s2.txt', 'w').write(new_str)
+                                                        with open('s2.txt', 'r') as f:
+                                                               for line in f:
+                                                                      server_num = line.split(' ')[7]
+                                                                      f = open('server_number.txt', 'w')
+                                                                      f.write(server_num)
+                                                                      f.close()
+                                                                      f = open('server_number.txt', 'r')
+                                                                      server_number = f.read()
+                                                                      print("Server Number -->", server_number)
+                                                                      # =========================================================>>
+                                                                      if server_num == '1':
+                                                                             print("This is server 1")
+                                                                             print("Username --> ", s1_admin_username,  "|" "Password --> ", s1_admin_password)
+                                                                             # ---------------------------------------------------------------------------->
+                                                                             driver = webdriver.Firefox( executable_path="C:\Program Files (x86)\geckodriver.exe")
+                                                                             driver.get(url_1)
+                                                                             time.sleep(0.10)
+                                                                             # ============[Bot is click and input the username here]================>>>
+                                                                             driver.find_element_by_xpath('//*[@id="txtUserName"]').click()
+                                                                             driver.find_element_by_xpath('//*[@id="txtUserName"]').send_keys(s1_admin_username)
+                                                                             # ============[Bot is click and input the Password here]================>>>
+                                                                             driver.find_element_by_xpath( '//*[@id="txtPassword"]').click()
+                                                                             driver.find_element_by_xpath('//*[@id="txtPassword"]').send_keys(s1_admin_password)
+                                                                             # ============[Bot is now clicking on login button to login in the website]====>>>
+                                                                             driver.find_element_by_xpath('//*[@id="save"]').click()
+                                                                             # =======[ Now bot is trying to all user account ]=====================>>>
+                                                                             driver.get('https://partner.gtel.in/Partner/Accounts.aspx')
+                                                                             time.sleep(0.10)
+                                                                             # ======[ Now bot is trying to click search bar   ]===============================>>>
+                                                                             driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_txtserch"]').click()
+                                                                             # ======[ Now bot is trying type on search bar  ]==============================================>>
+                                                                             driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_txtserch"]').send_keys(clientname)
+                                                                             time.sleep(1)
+                                                                             # ======[click on search button]===========================================>
+                                                                             driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_btnserch"]').click()
+                                                                             time.sleep(1)
+                                                                             # ================[Bot is trying to click on renew plan]=======================================>>>
+                                                                             popup = driver.find_element_by_xpath('/html/body/div[2]/form/div[4]/div[2]/div/div[1]/div[1]/table/tbody/tr/td[2]/div[1]/div/div/table/tbody/tr[2]/td[12]/input').click()
+                                                                             time.sleep(1)
+                                                                             # ==============[Scroll here this gonna be easy]=========================================>>>
+                                                                             scr1 = driver.find_element_by_xpath('/html/body/div[2]/form/div[4]/div[2]/div/div[1]/div[3]')
+                                                                             driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", scr1)
+                                                                             time.sleep(1)
+                                                                             # --[Bot is clicking on cancel button on popup-->>
+                                                                             driver.find_element_by_xpath('//*[@id="btnPurchaseRenewPlanClose"]').click()
+                                                                             time.sleep(1)
+                                                                             # ============[This is reporting section start here]===============================>>>
+                                                                             driver.save_screenshot("user_status.png")
+                                                                             logger.info(" [+] Screenshot taken successfully")
+                                                                             # ===========[Now moving to another folder screenshot for managing space to next screenshot]=======>>
+                                                                             original = r'C:/Users/Perfect TC Society/PycharmProjects/Dhritinetwork_Bot/user_status.png'
+                                                                             target = r'C:/Users/Perfect TC Society/PycharmProjects/Dhritinetwork_Bot/db/user_status.png'
+                                                                             shutil.move(original, target)
+                                                                             # ===========[All Task Complete successfully logout now..]=======>>
+                                                                             driver.find_element_by_xpath('//*[@id="lbklogout"]').click()
+                                                                             time.sleep(0.10)
+                                                                             logger.info( " [+] Successfully task completed Now.")
+                                                                             logger.info(" [+] Closing entire browser")
+                                                                             """ Here Bot is trying close entire browser """
+                                                                             driver.close()
+                                                                             # ---------------------------------------------------------------------------->
+                                                                      elif server_num == '2':
+                                                                             print("This is server 2")
+                                                                             print("Username  --> ", s2_admin_username, "|" "Password  --> ", s2_admin_password)
+                                                                             # ----------------------------------------------------------------------------------->
+                                                                             driver = webdriver.Firefox( executable_path="C:\Program Files (x86)\geckodriver.exe")
+                                                                             driver.get(url_2)
+                                                                             time.sleep(0.10)
+                                                                             # ============[Bot is click and input the username here]================>>>
+                                                                             driver.find_element_by_xpath('//*[@id="txtUserName"]').click()
+                                                                             driver.find_element_by_xpath('//*[@id="txtUserName"]').send_keys(  s1_admin_username)
+                                                                             # ============[Bot is click and input the Password here]================>>>
+                                                                             driver.find_element_by_xpath('//*[@id="txtPassword"]').click()
+                                                                             driver.find_element_by_xpath('//*[@id="txtPassword"]').send_keys(s1_admin_password)
+                                                                             # ============[Bot is now clicking on login button to login in the website]====>>>
+                                                                             driver.find_element_by_xpath('//*[@id="save"]').click()
+                                                                             # =======[ Now bot is trying to all user account ]=====================>>>
+                                                                             driver.get('https://partner.gtel.in/Partner/Accounts.aspx')
+                                                                             time.sleep(0.10)
+                                                                             # ======[ Now bot is trying to click search bar   ]===============================>>>
+                                                                             driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_txtserch"]').click()
+                                                                             # ======[ Now bot is trying type on search bar  ]==============================================>>
+                                                                             driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_txtserch"]').send_keys( clientname)
+                                                                             time.sleep(1)
+                                                                             # ======[click on search button]===========================================>
+                                                                             driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_btnserch"]').click()
+                                                                             time.sleep(1)
+                                                                             # ================[Bot is trying to click on renew plan]=======================================>>>
+                                                                             popup = driver.find_element_by_xpath('/html/body/div[2]/form/div[4]/div[2]/div/div[1]/div[1]/table/tbody/tr/td[2]/div[1]/div/div/table/tbody/tr[2]/td[12]/input').click()
+                                                                             time.sleep(1)
+                                                                             # ==============[Scroll here this gonna be easy]=========================================>>>
+                                                                             scr1 = driver.find_element_by_xpath('/html/body/div[2]/form/div[4]/div[2]/div/div[1]/div[3]')
+                                                                             driver.execute_script( "arguments[0].scrollTop = arguments[0].scrollHeight", scr1)
+                                                                             time.sleep(1)
+                                                                             # --[Bot is clicking on cancel button on popup-->>
+                                                                             driver.find_element_by_xpath('/html/body/div[2]/form/div[4]/div[2]/div/div[1]/div[3]/table/tbody/tr[40]/td/button[2]').click()
+                                                                             time.sleep(1)
+                                                                             # ============[This is reporting section start here]===============================>>>
+                                                                             driver.save_screenshot("user_status.png")
+                                                                             logger.info(" [+] Screenshot taken successfully")
+                                                                             # ===========[Now moving to another folder screenshot for managing space to next screenshot]=======>>
+                                                                             original = r'C:/Users/Perfect TC Society/PycharmProjects/Dhritinetwork_Bot/user_status.png'
+                                                                             target = r'C:/Users/Perfect TC Society/PycharmProjects/Dhritinetwork_Bot/db/user_status.png'
+                                                                             shutil.move(original, target)
+                                                                             # ===========[All Task Complete successfully logout now..]=======>>
+                                                                             driver.find_element_by_xpath('//*[@id="lbklogout"]').click()
+                                                                             time.sleep(0.10)
+                                                                             logger.info(" [+] Successfully task completed Now.")
+                                                                             logger.info(" [+] Closing entire browser")
+                                                                             """ Here Bot is trying close entire browser """
+                                                                             driver.close()
+                                                                             # -------------------------------------------------------------------------------------->
+                                                                      if server_num == '3':
+                                                                             print("This is 3rd server")
+                                                                             print("Username  --> ", s2_admin_username, "|" "Password  --> ", s2_admin_password)
+                                                                             #----------------------------------------------------------------------------------->
+                                                                             driver = webdriver.Firefox(executable_path="C:\Program Files (x86)\geckodriver.exe")
+                                                                             driver.get(url_3)
+                                                                             time.sleep(0.10)
+                                                                             # ============[Bot is click and input the username here]================>>>
+                                                                             driver.find_element_by_xpath('//*[@id="txtUserName"]').click()
+                                                                             driver.find_element_by_xpath( '//*[@id="txtUserName"]').send_keys(s1_admin_username)
+                                                                             # ============[Bot is click and input the Password here]================>>>
+                                                                             driver.find_element_by_xpath( '//*[@id="txtPassword"]').click()
+                                                                             driver.find_element_by_xpath( '//*[@id="txtPassword"]').send_keys( s1_admin_password)
+                                                                             # ============[Bot is now clicking on login button to login in the website]====>>>
+                                                                             driver.find_element_by_xpath('//*[@id="save"]').click()
+                                                                             # =======[ Now bot is trying to all user account ]=====================>>>
+                                                                             driver.get('http://partner.gtel.in/Partner/Default.aspx')
+                                                                             time.sleep(0.10)
+                                                                             # ======[ Now bot is trying to click search bar   ]===============================>>>
+                                                                             driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_txtserch"]').click()
+                                                                             # ======[ Now bot is trying type on search bar  ]==============================================>>
+                                                                             driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_txtserch"]').send_keys(clientname)
+                                                                             time.sleep(1)
+                                                                             # ======[click on search button]===========================================>
+                                                                             driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_btnserch"]').click()
+                                                                             time.sleep(1)
+                                                                             # ================[Bot is trying to click on renew plan]=======================================>>>
+                                                                             popup = driver.find_element_by_xpath('/html/body/div[2]/form/div[4]/div[2]/div/div[1]/div[1]/table/tbody/tr/td[2]/div[1]/div/div/table/tbody/tr[2]/td[12]/input').click()
+                                                                             time.sleep(1)
+                                                                             # ==============[Scroll here this gonna be easy]=========================================>>>
+                                                                             scr1 = driver.find_element_by_xpath('/html/body/div[2]/form/div[4]/div[2]/div/div[1]/div[3]')
+                                                                             driver.execute_script( "arguments[0].scrollTop = arguments[0].scrollHeight", scr1)
+                                                                             time.sleep(1)
+                                                                             # --[Bot is clicking on cancel button on popup-->>
+                                                                             driver.find_element_by_xpath('/html/body/div[2]/form/div[4]/div[2]/div/div[1]/div[3]/table/tbody/tr[40]/td/button[2]').click()
+                                                                             time.sleep(1)
+                                                                             # ============[This is reporting section start here]===============================>>>
+                                                                             driver.save_screenshot("user_status.png")
+                                                                             logger.info(" [+] Screenshot taken successfully")
+                                                                             # ===========[Now moving to another folder screenshot for managing space to next screenshot]=======>>
+                                                                             original = r'C:/Users/Perfect TC Society/PycharmProjects/Dhritinetwork_Bot/user_status.png'
+                                                                             target = r'C:/Users/Perfect TC Society/PycharmProjects/Dhritinetwork_Bot/db/user_status.png'
+                                                                             shutil.move(original, target)
+                                                                             # ===========[All Task Complete successfully logout now..]=======>>
+                                                                             driver.find_element_by_xpath('//*[@id="lbklogout"]').click()
+                                                                             time.sleep(0.10)
+                                                                             logger.info( " [+] Successfully task completed Now.")
+                                                                             logger.info(" [+] Closing entire browser")
+                                                                             #Here Bot is trying close entire browser=========================>
+                                                                             driver.close()
+                                                                             #=================================================================>
+                                                                      else:
+                                                                             logger.info(" [+] Excuting main file now.. ")
+                                                                             subprocess.call("python main.py")
+                                                                             # =================================================================>
+                                                                             #========[Deleting new email from inbox]===========================>
+                                                                             box = imaplib.IMAP4_SSL('imap.gmail.com',993)
+                                                                             box.login(botemail, botemailpassword)
+                                                                             box.select('Inbox')
+                                                                             typ, data = box.search(None, 'ALL')
+                                                                             for num in data[0].split():
+                                                                                    box.store(num, '+FLAGS','\\Deleted')
+                                                                             box.expunge()
+                                                                             box.close()
+                                                                             box.logout()
+                                                                             logger.info(" [+] New Email is Deleted. ")
+                                                                             # ============[finishing up logging ]================================>>
+                                                                             # =======[The creadit Section from developer]========================>>>
+                                                                             logger.info(" [+] Dhritinetwork_Bot - Version 1.0")
+                                                                             logger.info(" [+] Made By : Ashutosh kumar Gautam")
+                                                                             logger.info(" [+] Contact me : Email - ashutoshkumargautam@protonmail.com")
+                                                                             logger.info(" <-- [+] Closing Date and Time  ")
+                                                                             logger.info("Back in infinite now...")
+                                                                             print(" [+] Back in infinite loop now...")
+                                                                             logger.info("[======================================================================================>")
+                                                               subprocess.call("python main.py",shell=True)
+                                   subprocess.call("python main.py", shell=True)
+                     continue
