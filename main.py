@@ -20,12 +20,12 @@ f.close()
 #[servername - Patner.gtel.com] server 1 username and password
 s1_admin_username = 'Anil'
 s1_admin_password = 'Anil2522'
-#[servername - patner.gtel.conaxia] server 2 username and password
-s2_admin_username = 'dhritinetwork'
-s2_admin_password = 'dhritinetwork508'
-#[servername - Patner.gtel] server 3 username and password
-s3_admin_username = 'dhriti'
-s3_admin_password = '112233'
+#[servername - Patner.gtel] server 2 username and password
+s2_admin_username = 'dhriti'
+s2_admin_password = '112233'
+#[servername - patner.gtel.conaxia] server 3 username and password
+s3_admin_username = 'dhritinetwork'
+s3_admin_password = 'dhritinetwork508'
 #======================================================================================================
 # All website url list
 url_1 = "https://partner.gtel.in/Partner/Default.aspx" #server_1
@@ -230,7 +230,7 @@ while True:
                                                                              # ============[Bot is now clicking on login button to login in the website]====>>>
                                                                              driver.find_element_by_xpath('//*[@id="save"]').click()
                                                                              # =======[ Now bot is trying to all user account ]=====================>>>
-                                                                             driver.get('https://partner.gtel.in/Partner/Accounts.aspx')
+                                                                             driver.get('http://partner.conexiaworld.com/Partner/Accounts.aspx')
                                                                              time.sleep(0.10)
                                                                              # ======[ Now bot is trying to click search bar   ]===============================>>>
                                                                              driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_txtserch"]').click()
@@ -318,8 +318,8 @@ while True:
                                                                              driver.save_screenshot("user_status.png")
                                                                              logger.info(" [+] Screenshot taken successfully")
                                                                              # ===========[Now moving to another folder screenshot for managing space to next screenshot]=======>>
-                                                                             original = r'C:/Users/Perfect TC Society/PycharmProjects/Dhritinetwork_Bot/user_status.png'
-                                                                             target = r'C:/Users/Perfect TC Society/PycharmProjects/Dhritinetwork_Bot/db/user_status.png'
+                                                                             original = r'C:/Users/Dhritinet/PycharmProjects/Dhritinetwork_Bot/user_status.png'
+                                                                             target = r'C:/Users/Dhritinet/PycharmProjects/Dhritinetwork_Bot/db/user_status.png'
                                                                              shutil.move(original, target)
                                                                              # ===========[All Task Complete successfully logout now..]=======>>
                                                                              driver.find_element_by_xpath('//*[@id="lbklogout"]').click()
