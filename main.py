@@ -155,7 +155,7 @@ while True:
                                                                              print("This is server 1")
                                                                              print("Username --> ", s1_admin_username,  "|" "Password --> ", s1_admin_password)
                                                                              # ---------------------------------------------------------------------------->
-                                                                             driver = webdriver.Firefox( executable_path="C:\Program Files (x86)\geckodriver.exe")
+                                                                             driver = webdriver.Firefox(executable_path="C:\Program Files (x86)\geckodriver.exe")
                                                                              driver.get(url_1)
                                                                              time.sleep(0.10)
                                                                              # ============[Bot is click and input the username here]================>>>
@@ -191,8 +191,8 @@ while True:
                                                                              driver.save_screenshot("user_status.png")
                                                                              logger.info(" [+] Screenshot taken successfully")
                                                                              # ===========[Now moving to another folder screenshot for managing space to next screenshot]=======>>
-                                                                             original = r'C:/Users/Perfect TC Society/PycharmProjects/Dhritinetwork_Bot/user_status.png'
-                                                                             target = r'C:/Users/Perfect TC Society/PycharmProjects/Dhritinetwork_Bot/db/user_status.png'
+                                                                             original = r'C:/Users/Dhritinet/PycharmProjects/Dhritinetwork_Bot/user_status.png'
+                                                                             target = r'C:/Users/Dhritinet/PycharmProjects/Dhritinetwork_Bot/db/user_status.png'
                                                                              shutil.move(original, target)
                                                                              # ===========[All Task Complete successfully logout now..]=======>>
                                                                              driver.find_element_by_xpath('//*[@id="lbklogout"]').click()
@@ -201,6 +201,19 @@ while True:
                                                                              logger.info(" [+] Closing entire browser")
                                                                              """ Here Bot is trying close entire browser """
                                                                              driver.close()
+                                                                             # ========[Deleting new email from inbox]===========================>
+                                                                             box = imaplib.IMAP4_SSL('imap.gmail.com', 993)
+                                                                             box.login(botemail, botemailpassword)
+                                                                             box.select('Inbox')
+                                                                             typ, data = box.search(None, 'ALL')
+                                                                             for num in data[0].split():
+                                                                                    box.store(num, '+FLAGS',
+                                                                                              '\\Deleted')
+                                                                             box.expunge()
+                                                                             box.close()
+                                                                             box.logout()
+                                                                             logger.info(" [+] New Email is Deleted. ")
+                                                                             # ============[finishing up logging ]================================>>
                                                                              # ---------------------------------------------------------------------------->
                                                                       elif server_num == '2':
                                                                              print("This is server 2")
@@ -242,8 +255,8 @@ while True:
                                                                              driver.save_screenshot("user_status.png")
                                                                              logger.info(" [+] Screenshot taken successfully")
                                                                              # ===========[Now moving to another folder screenshot for managing space to next screenshot]=======>>
-                                                                             original = r'C:/Users/Perfect TC Society/PycharmProjects/Dhritinetwork_Bot/user_status.png'
-                                                                             target = r'C:/Users/Perfect TC Society/PycharmProjects/Dhritinetwork_Bot/db/user_status.png'
+                                                                             original = r'C:/Users/Dhritinet/PycharmProjects/Dhritinetwork_Bot/user_status.png'
+                                                                             target = r'C:/Users/Dhritinet/PycharmProjects/Dhritinetwork_Bot/db/user_status.png'
                                                                              shutil.move(original, target)
                                                                              # ===========[All Task Complete successfully logout now..]=======>>
                                                                              driver.find_element_by_xpath('//*[@id="lbklogout"]').click()
@@ -252,6 +265,19 @@ while True:
                                                                              logger.info(" [+] Closing entire browser")
                                                                              """ Here Bot is trying close entire browser """
                                                                              driver.close()
+                                                                             # ========[Deleting new email from inbox]===========================>
+                                                                             box = imaplib.IMAP4_SSL('imap.gmail.com', 993)
+                                                                             box.login(botemail, botemailpassword)
+                                                                             box.select('Inbox')
+                                                                             typ, data = box.search(None, 'ALL')
+                                                                             for num in data[0].split():
+                                                                                    box.store(num, '+FLAGS',
+                                                                                              '\\Deleted')
+                                                                             box.expunge()
+                                                                             box.close()
+                                                                             box.logout()
+                                                                             logger.info(" [+] New Email is Deleted. ")
+                                                                             # ============[finishing up logging ]================================>>
                                                                              # -------------------------------------------------------------------------------------->
                                                                       if server_num == '3':
                                                                              print("This is 3rd server")
@@ -303,6 +329,18 @@ while True:
                                                                              logger.info(" [+] Closing entire browser")
                                                                              #Here Bot is trying close entire browser=========================>
                                                                              driver.close()
+                                                                             # ========[Deleting new email from inbox]===========================>
+                                                                             box = imaplib.IMAP4_SSL('imap.gmail.com', 993)
+                                                                             box.login(botemail, botemailpassword)
+                                                                             box.select('Inbox')
+                                                                             typ, data = box.search(None, 'ALL')
+                                                                             for num in data[0].split():
+                                                                                    box.store(num, '+FLAGS', '\\Deleted')
+                                                                             box.expunge()
+                                                                             box.close()
+                                                                             box.logout()
+                                                                             logger.info(" [+] New Email is Deleted. ")
+                                                                             # ============[finishing up logging ]================================>>
                                                                              #=================================================================>
                                                                       else:
                                                                              logger.info(" [+] Excuting main file now.. ")
