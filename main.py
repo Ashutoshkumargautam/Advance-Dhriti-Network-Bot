@@ -248,33 +248,64 @@ while True:
                                                                              from email.mime.text import MIMEText
                                                                              from email.mime.base import MIMEBase
                                                                              from email import encoders
-                                                                             mail_content = "Hi, Sir this is your client recharge from server 1 report from bot fo admin please check when you get time." \
-                                                                                            "Thank you" \
-                                                                                            "Dhritinetwork_Bot"
-                                                                             sender_address = botemail
-                                                                             sender_pass = botemailpassword
-                                                                             receiver_address = 'ashutoshkumargautam00000@gmail.com'
-                                                                             message = MIMEMultipart()
-                                                                             message['From'] = sender_address
-                                                                             message['To'] = receiver_address
-                                                                             message['Subject'] = 'Report from Dhritinetwork_Bot for Admin'
-                                                                             message.attach(MIMEText(mail_content, 'plain'))
-                                                                             attach_file_name = 'C:/Users/Dhritinet/PycharmProjects/Dhritinetwork_Bot/db/user_status.png'
-                                                                             attach_file = open(attach_file_name, 'rb')  # Open the file as binary mode
-                                                                             payload = MIMEBase('application', 'octate-stream')
-                                                                             payload.set_payload((attach_file).read())
-                                                                             encoders.encode_base64(payload)  # encode the attachment
-                                                                             # add payload header with filename
-                                                                             payload.add_header('Content-Decomposition', 'attachment', filename=attach_file_name)
-                                                                             message.attach(payload)
-                                                                             # Create SMTP session for sending the mail
-                                                                             session = smtplib.SMTP('smtp.gmail.com', 587)  # use gmail with port
-                                                                             session.starttls()  # enable security
-                                                                             session.login(sender_address, sender_pass)  # login with mail_id and password
-                                                                             text = message.as_string()
-                                                                             session.sendmail(sender_address, receiver_address, text)
-                                                                             session.quit()
-                                                                             logger.info("mail sent")
+
+                                                                             fromaddr = botemail
+                                                                             toaddr = "ashutoshkumargautam00000@gmail.com"
+
+                                                                             # instance of MIMEMultipart
+                                                                             msg = MIMEMultipart()
+
+                                                                             # storing the senders email address
+                                                                             msg['From'] = fromaddr
+
+                                                                             # storing the receivers email address
+                                                                             msg['To'] = toaddr
+
+                                                                             # storing the subject
+                                                                             msg['Subject'] = "Subject of the Mail"
+
+                                                                             # string to store the body of the mail
+                                                                             body = "Body_of_the_mail"
+
+                                                                             # attach the body with the msg instance
+                                                                             msg.attach(MIMEText(body, 'plain'))
+
+                                                                             # open the file to be sent
+                                                                             filename = "user_status.png"
+                                                                             attachment = open("C:/Users/Dhritinet/PycharmProjects/Dhritinetwork_Bot/db/user_status.png", "rb")
+
+                                                                             # instance of MIMEBase and named as p
+                                                                             p = MIMEBase('application', 'octet-stream')
+
+                                                                             # To change the payload into encoded form
+                                                                             p.set_payload((attachment).read())
+
+                                                                             # encode into base64
+                                                                             encoders.encode_base64(p)
+
+                                                                             p.add_header('Content-Disposition',
+                                                                                          "attachment; filename= %s" % filename)
+
+                                                                             # attach the instance 'p' to instance 'msg'
+                                                                             msg.attach(p)
+
+                                                                             # creates SMTP session
+                                                                             s = smtplib.SMTP('smtp.gmail.com', 587)
+
+                                                                             # start TLS for security
+                                                                             s.starttls()
+
+                                                                             # Authentication
+                                                                             s.login(fromaddr, botemailpassword)
+
+                                                                             # Converts the Multipart msg into a string
+                                                                             text = msg.as_string()
+
+                                                                             # sending the mail
+                                                                             s.sendmail(fromaddr, toaddr, text)
+
+                                                                             # terminating the session
+                                                                             s.quit()
                                                                              # =================================================================>
                                                                              #==========================================================================>
                                                                              # ===[This is server [2]====>>
