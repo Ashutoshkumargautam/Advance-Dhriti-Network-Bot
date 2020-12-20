@@ -242,6 +242,40 @@ while True:
                                                                              logger.info("Successfully server 1 recharge done.")
                                                                              logger.info("Back in infinity loop")
                                                                              # ============[finishing up logging ]================================>>
+                                                                             # =================================================================>
+                                                                             import smtplib
+                                                                             from email.mime.multipart import MIMEMultipart
+                                                                             from email.mime.text import MIMEText
+                                                                             from email.mime.base import MIMEBase
+                                                                             from email import encoders
+                                                                             mail_content = "Hi, Sir this is your client recharge report from bot fo admin please check when you get time." \
+                                                                                            "Thank you" \
+                                                                                            "Dhritinetwork_Bot"
+                                                                             sender_address = botemail
+                                                                             sender_pass = botemailpassword
+                                                                             receiver_address = 'ashutoshkumargautam00000@gmail.com'
+                                                                             message = MIMEMultipart()
+                                                                             message['From'] = sender_address
+                                                                             message['To'] = receiver_address
+                                                                             message['Subject'] = 'Report from Dhritinetwork_Bot for Admin'
+                                                                             message.attach(MIMEText(mail_content, 'plain'))
+                                                                             attach_file_name = 'C:/Users/Dhritinet/PycharmProjects/Dhritinetwork_Bot/db/user_status.png'
+                                                                             attach_file = open(attach_file_name, 'rb')  # Open the file as binary mode
+                                                                             payload = MIMEBase('application', 'octate-stream')
+                                                                             payload.set_payload((attach_file).read())
+                                                                             encoders.encode_base64(payload)  # encode the attachment
+                                                                             # add payload header with filename
+                                                                             payload.add_header('Content-Decomposition', 'attachment', filename=attach_file_name)
+                                                                             message.attach(payload)
+                                                                             # Create SMTP session for sending the mail
+                                                                             session = smtplib.SMTP('smtp.gmail.com', 587)  # use gmail with port
+                                                                             session.starttls()  # enable security
+                                                                             session.login(sender_address, sender_pass)  # login with mail_id and password
+                                                                             text = message.as_string()
+                                                                             session.sendmail(sender_address, receiver_address, text)
+                                                                             session.quit()
+                                                                             logger.info("mail sent")
+                                                                             # =================================================================>
                                                                              #==========================================================================>
                                                                              # ===[This is server [2]====>>
                                                                       elif server_num == '2':
@@ -372,12 +406,11 @@ while True:
                                                                              box.logout()
                                                                              logger.info(" [+] New Email is Deleted. ")
                                                                              # ============[finishing up logging ]================================>>
-                                                                             #=================================================================>
-                                                                             # =================================================================>
+
                                                                       else:
                                                                              logger.info(" [+] Excuting main file now.. ")
                                                                              subprocess.call("python main.py")
-                                                                             # =================================================================>>
+                                                                             # =================================================================>
                                                                              # =======[The creadit Section from developer]========================>>
                                                                              logger.info(" [+] Dhritinetwork_Bot - Version 1.0")
                                                                              logger.info(" [+] Made By : Ashutosh kumar Gautam")
@@ -386,6 +419,7 @@ while True:
                                                                              logger.info("Back in infinite now...")
                                                                              print(" [+] Back in infinite loop now...")
                                                                              logger.info("[======================================================================================>")
+
                                                                subprocess.call("python main.py",shell=True)
                                    subprocess.call("python main.py", shell=True)
                      continue
